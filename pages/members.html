@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FamilyBot — Miembros de la familia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body class="app-page">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">🏠</span>
+      <span class="brand-text">FamilyBot</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a class='nav-item' href='dashboard.html'><span class="nav-icon">📊</span><span>Panel</span></a>
+      <a class='nav-item active' href='members.html'><span class="nav-icon">👪</span><span>Miembros</span></a>
+      <a class='nav-item' href='schedule.html'><span class="nav-icon">📅</span><span>Horarios</span></a>
+      <a class='nav-item' href='alerts.html'><span class="nav-icon">🔔</span><span>Recordatorios</span><span class="nav-badge" id="alertBadge">0</span></a>
+      <a class='nav-item' href='shopping.html'><span class="nav-icon">🛒</span><span>Compras</span></a>
+      <a class='nav-item' href='expenses.html'><span class="nav-icon">💰</span><span>Gastos</span></a>
+      <a class='nav-item' href='pets.html'><span class="nav-icon">🐾</span><span>Mascotas</span></a>
+      <a class='nav-item' href='settings.html'><span class="nav-icon">⚙️</span><span>Ajustes</span></a>
+      <a class='nav-item' href='assistant.html'><span class="nav-icon">🤖</span><span>Asistente IA</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info" id="sidebarUser"></div>
+      <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="app-main">
+    <header class="app-header">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1 class="page-title">Miembros de la familia</h1>
+      <button class="btn-primary" onclick="openMemberModal()">+ Agregar miembro</button>
+    </header>
+
+    <div class="page-content">
+      <div class="members-grid" id="membersGrid">
+        <!-- members rendered here -->
+      </div>
+      <div class="empty-page" id="membersEmpty" style="display:none">
+        <div class="empty-big-icon">👪</div>
+        <h2>Aún no has agregado miembros</h2>
+        <p>Registra a los miembros de tu familia para comenzar a organizar horarios, tareas y recogidas.</p>
+        <button class="btn-primary" onclick="openMemberModal()">Agregar primer miembro</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- MEMBER MODAL -->
+  <div id="memberModal" class="modal-overlay" style="display:none">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="memberModalTitle">Agregar miembro</h2>
+        <button class="modal-close" onclick="closeMemberModal()">✕</button>
+      </div>
+      <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" id="memberName" placeholder="Nombre del miembro" class="form-input"/>
+      </div>
+      <div class="form-group">
+        <label>Rol en la familia</label>
+        <div class="days-picker">
+          <button type="button" class="role-btn" data-role="nino">🧒 Niño(a)</button>
+          <button type="button" class="role-btn" data-role="adulto">🧑 Adulto</button>
+          <button type="button" class="role-btn" data-role="otro">👤 Otro</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Edad (opcional)</label>
+          <input type="number" id="memberAge" placeholder="8" min="0" max="120" class="form-input"/>
+        </div>
+        <div class="form-group" id="relationField" style="display:none">
+          <label>Relación (opcional)</label>
+          <input type="text" id="memberRelation" placeholder="ej: Mamá, Abuelo" class="form-input"/>
+        </div>
+      </div>
+      <div id="schoolFields">
+        <div class="form-group">
+          <label>Grado escolar</label>
+          <input type="text" id="memberGrade" placeholder="3° primaria" class="form-input"/>
+        </div>
+        <div class="form-group">
+          <label>Escuela</label>
+          <input type="text" id="memberSchool" placeholder="Nombre de la escuela" class="form-input"/>
+        </div>
+        <div class="form-group">
+          <label>Dirección escuela</label>
+          <input type="text" id="memberSchoolAddress" placeholder="Calle y número" class="form-input"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Hora entrada</label>
+            <input type="time" id="memberEntryTime" class="form-input" value="07:00"/>
+          </div>
+          <div class="form-group">
+            <label>Hora salida</label>
+            <input type="time" id="memberExitTime" class="form-input" value="14:00"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Días de escuela</label>
+          <div class="days-picker" id="memberDays">
+            <button class="day-btn active" data-day="lun">L</button>
+            <button class="day-btn active" data-day="mar">M</button>
+            <button class="day-btn active" data-day="mie">X</button>
+            <button class="day-btn active" data-day="jue">J</button>
+            <button class="day-btn active" data-day="vie">V</button>
+            <button class="day-btn" data-day="sab">S</button>
+            <button class="day-btn" data-day="dom">D</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Color de identificación</label>
+        <div class="color-picker" id="memberColorPicker">
+          <button class="color-btn active" data-color="#4F8EF7" style="background:#4F8EF7"></button>
+          <button class="color-btn" data-color="#F74F6C" style="background:#F74F6C"></button>
+          <button class="color-btn" data-color="#4FC87F" style="background:#4FC87F"></button>
+          <button class="color-btn" data-color="#F7B24F" style="background:#F7B24F"></button>
+          <button class="color-btn" data-color="#9B4FF7" style="background:#9B4FF7"></button>
+          <button class="color-btn" data-color="#F74FC8" style="background:#F74FC8"></button>
+        </div>
+      </div>
+      <input type="hidden" id="memberEditId"/>
+      <div id="memberFormError" class="form-error" style="display:none"></div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeMemberModal()">Cancelar</button>
+        <button class="btn-primary" onclick="saveMember()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" style="display:none"></div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/members.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FamilyBot — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body class="app-page">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">🏠</span>
+      <span class="brand-text">FamilyBot</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a class='nav-item active' href='dashboard.html'>
+        <span class="nav-icon">📊</span><span>Panel</span>
+      </a>
+      <a class='nav-item' href='members.html'>
+        <span class="nav-icon">👪</span><span>Miembros</span>
+      </a>
+      <a class='nav-item' href='schedule.html'>
+        <span class="nav-icon">📅</span><span>Horarios</span>
+      </a>
+      <a class='nav-item' href='alerts.html'>
+        <span class="nav-icon">🔔</span><span>Recordatorios</span>
+        <span class="nav-badge" id="alertBadge">0</span>
+      </a>
+      <a class='nav-item' href='shopping.html'>
+        <span class="nav-icon">🛒</span><span>Compras</span>
+      </a>
+      <a class='nav-item' href='expenses.html'>
+        <span class="nav-icon">💰</span><span>Gastos</span>
+      </a>
+      <a class='nav-item' href='pets.html'>
+        <span class="nav-icon">🐾</span><span>Mascotas</span>
+      </a>
+      <a class='nav-item' href='settings.html'>
+        <span class="nav-icon">⚙️</span><span>Ajustes</span>
+      </a>
+      <a class='nav-item' href='assistant.html'>
+        <span class="nav-icon">🤖</span><span>Asistente IA</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info" id="sidebarUser"></div>
+      <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="app-main">
+    <header class="app-header">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1 class="page-title">Panel familiar</h1>
+      <div class="header-date" id="headerDate"></div>
+    </header>
+
+    <div class="dashboard-content">
+
+      <!-- STATS ROW -->
+      <div class="stats-row">
+        <div class="stat-card stat-blue">
+          <div class="stat-icon">👪</div>
+          <div class="stat-info">
+            <div class="stat-number" id="statsMembers">0</div>
+            <div class="stat-label">Miembros registrados</div>
+          </div>
+        </div>
+        <div class="stat-card stat-green">
+          <div class="stat-icon">📅</div>
+          <div class="stat-info">
+            <div class="stat-number" id="statsEvents">0</div>
+            <div class="stat-label">Eventos hoy</div>
+          </div>
+        </div>
+        <div class="stat-card stat-orange">
+          <div class="stat-icon">🔔</div>
+          <div class="stat-info">
+            <div class="stat-number" id="statsAlerts">0</div>
+            <div class="stat-label">Recordatorios pendientes</div>
+          </div>
+        </div>
+        <div class="stat-card stat-purple">
+          <div class="stat-icon">✅</div>
+          <div class="stat-info">
+            <div class="stat-number" id="statsTasks">0</div>
+            <div class="stat-label">Tareas pendientes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTENT GRID -->
+      <div class="content-grid">
+
+        <!-- MEMBERS OVERVIEW -->
+        <div class="card">
+          <div class="card-header">
+            <h2>👪 Miembros de la familia</h2>
+            <a class='card-link' href='members.html'>Gestionar →</a>
+          </div>
+          <div class="children-overview" id="membersOverview">
+            <div class="empty-state">
+              <div class="empty-icon">👪</div>
+              <p>Agrega miembros de tu familia para comenzar</p>
+              <a class='btn-secondary small' href='members.html'>Agregar miembro</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- TODAY'S SCHEDULE -->
+        <div class="card">
+          <div class="card-header">
+            <h2>📅 Eventos de hoy</h2>
+            <a class='card-link' href='schedule.html'>Ver todo →</a>
+          </div>
+          <div class="schedule-list" id="todaySchedule">
+            <div class="empty-state">
+              <div class="empty-icon">📅</div>
+              <p>No hay eventos para hoy</p>
+              <a class='btn-secondary small' href='schedule.html'>Agregar evento</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PENDING TASKS -->
+        <div class="card">
+          <div class="card-header">
+            <h2>✅ Tareas pendientes</h2>
+            <a class='card-link' href='schedule.html'>Ver todo →</a>
+          </div>
+          <div class="tasks-list" id="dashTasks">
+            <div class="empty-state">
+              <div class="empty-icon">✅</div>
+              <p>No hay tareas pendientes</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- REMINDERS -->
+        <div class="card">
+          <div class="card-header">
+            <h2>🔔 Recordatorios</h2>
+            <a class='card-link' href='alerts.html'>Ver todos →</a>
+          </div>
+          <div class="alerts-list" id="dashAlerts">
+            <div class="empty-state">
+              <div class="empty-icon">🔔</div>
+              <p>Sin recordatorios pendientes</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHOPPING LIST -->
+        <div class="card">
+          <div class="card-header">
+            <h2>🛒 Lista de compras</h2>
+            <a class='card-link' href='shopping.html'>Ver todo →</a>
+          </div>
+          <div class="shopping-list" id="dashShopping">
+            <div class="empty-state">
+              <div class="empty-icon">🛒</div>
+              <p>Tu lista de compras está vacía</p>
+              <a class='btn-secondary small' href='shopping.html'>Agregar producto</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPENSES (optional, toggled in settings) -->
+        <div class="card" id="expensesCard" style="display:none">
+          <div class="card-header">
+            <h2>💰 Gastos del hogar</h2>
+            <a class='card-link' href='expenses.html'>Ver todo →</a>
+          </div>
+          <div id="dashExpenses">
+            <div class="empty-state">
+              <div class="empty-icon">💰</div>
+              <p>Aún no hay gastos registrados</p>
+              <a class='btn-secondary small' href='expenses.html'>Registrar gasto</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PETS -->
+        <div class="card">
+          <div class="card-header">
+            <h2>🐾 Mascotas registradas</h2>
+            <a class='card-link' href='pets.html'>Gestionar →</a>
+          </div>
+          <div class="children-overview" id="petsOverview">
+            <div class="empty-state">
+              <div class="empty-icon">🐾</div>
+              <p>Aún no has registrado mascotas</p>
+              <a class='btn-secondary small' href='pets.html'>Agregar mascota</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUICK AI -->
+        <div class="card card-ai">
+          <div class="card-header">
+            <h2>🤖 Pregunta rápida al asistente</h2>
+          </div>
+          <div class="quick-ai">
+            <input type="text" id="quickQuestion" class="form-input" placeholder="ej: ¿Qué me falta comprar?"/>
+            <button class="btn-primary" onclick="quickAsk()">Preguntar</button>
+            <div id="quickAnswer" class="quick-answer" style="display:none"></div>
+          </div>
+          <a class='btn-secondary mt-8' href='assistant.html'>Ir al asistente completo →</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- NOTIFICATION TOAST -->
+  <div id="toast" class="toast" style="display:none"></div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

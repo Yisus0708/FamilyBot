@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FamilyBot — Asistente IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body class="app-page">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><span class="brand-icon">🏠</span><span class="brand-text">FamilyBot</span></div>
+    <nav class="sidebar-nav">
+      <a class='nav-item' href='dashboard.html'><span class="nav-icon">📊</span><span>Panel</span></a>
+      <a class='nav-item' href='members.html'><span class="nav-icon">👪</span><span>Miembros</span></a>
+      <a class='nav-item' href='schedule.html'><span class="nav-icon">📅</span><span>Horarios</span></a>
+      <a class='nav-item' href='alerts.html'><span class="nav-icon">🔔</span><span>Recordatorios</span><span class="nav-badge" id="alertBadge">0</span></a>
+      <a class='nav-item' href='shopping.html'><span class="nav-icon">🛒</span><span>Compras</span></a>
+      <a class='nav-item' href='expenses.html'><span class="nav-icon">💰</span><span>Gastos</span></a>
+      <a class='nav-item' href='pets.html'><span class="nav-icon">🐾</span><span>Mascotas</span></a>
+      <a class='nav-item' href='settings.html'><span class="nav-icon">⚙️</span><span>Ajustes</span></a>
+      <a class='nav-item active' href='assistant.html'><span class="nav-icon">🤖</span><span>Asistente IA</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info" id="sidebarUser"></div>
+      <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="app-main">
+    <header class="app-header">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1 class="page-title">Asistente IA</h1>
+      <button class="btn-secondary" onclick="clearChat()">Limpiar chat</button>
+    </header>
+
+    <div class="chat-wrapper">
+      <!-- CHAT MESSAGES -->
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-welcome">
+          <div class="welcome-icon">🤖</div>
+          <h2>Hola, soy FamilyBot</h2>
+          <p>Tu asistente familiar inteligente. Puedo ayudarte a organizar horarios, tareas, compras, gastos y a toda tu familia. ¿En qué te puedo ayudar hoy?</p>
+          <div class="quick-prompts">
+            <button class="quick-prompt" onclick="usePrompt(this)">¿A qué hora recojo a los niños hoy?</button>
+            <button class="quick-prompt" onclick="usePrompt(this)">¿Qué tareas tienen esta semana?</button>
+            <button class="quick-prompt" onclick="usePrompt(this)">¿Qué me falta comprar?</button>
+            <button class="quick-prompt" onclick="usePrompt(this)">Resume el horario de mañana</button>
+            <button class="quick-prompt" onclick="usePrompt(this)">¿Qué recordatorios tengo pendientes?</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAT INPUT -->
+      <div class="chat-input-area">
+        <div class="chat-input-row">
+          <textarea
+            id="chatInput"
+            class="chat-textarea"
+            placeholder="Pregunta sobre horarios, tareas, recogidas..."
+            rows="1"
+            onkeydown="handleChatKey(event)"
+            oninput="autoResize(this)"
+          ></textarea>
+          <button class="btn-send" id="sendBtn" onclick="sendMessage()">
+            <span id="sendIcon">➤</span>
+          </button>
+        </div>
+        <p class="chat-hint">Presiona Enter para enviar, Shift+Enter para nueva línea</p>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" style="display:none"></div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/assistant.js"></script>
+</body>
+</html>

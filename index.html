@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FamilyBot — Tu asistente familiar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="auth-page">
+
+  <!-- API KEY MODAL -->
+  <div id="apiModal" class="modal-overlay" style="display:none">
+    <div class="modal-box">
+      <div class="modal-icon">🤖</div>
+      <h2>Conectar con Google AI Studio</h2>
+      <p>Para que FamilyBot pueda entender tus solicitudes y generar alertas inteligentes, necesita tu clave de API de Google AI Studio (Gemini).</p>
+      <div class="api-steps">
+        <a href="https://aistudio.google.com/app/apikey" target="_blank" class="api-link">→ Obtener API Key gratis en Google AI Studio</a>
+      </div>
+      <input type="password" id="apiKeyInput" placeholder="Pega aquí tu API Key de Gemini..." class="api-input"/>
+      <div id="apiError" class="api-error" style="display:none">API Key inválida o sin conexión. Verifica e intenta de nuevo.</div>
+      <button id="saveApiBtn" class="btn-primary full-width">Conectar y continuar</button>
+    </div>
+  </div>
+
+  <!-- MAIN AUTH CONTAINER -->
+  <div class="auth-container">
+    <div class="auth-brand">
+      <div class="brand-logo">🏠</div>
+      <h1 class="brand-name">FamilyBot</h1>
+      <p class="brand-tagline">El asistente que organiza tu familia</p>
+    </div>
+
+    <!-- TABS -->
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button class="tab-btn active" id="loginTab" onclick="switchTab('login')">Iniciar sesión</button>
+        <button class="tab-btn" id="registerTab" onclick="switchTab('register')">Crear cuenta</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="loginEmail" placeholder="tu@correo.com" class="form-input"/>
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" class="form-input"/>
+        </div>
+        <div id="loginError" class="form-error" style="display:none"></div>
+        <button class="btn-primary full-width" onclick="handleLogin()">Entrar</button>
+        <p class="auth-switch">¿No tienes cuenta? <a onclick="switchTab('register')">Regístrate aquí</a></p>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="registerForm" class="auth-form" style="display:none">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" id="regName" placeholder="Tu nombre" class="form-input"/>
+          </div>
+          <div class="form-group">
+            <label>Apellido</label>
+            <input type="text" id="regLastName" placeholder="Tu apellido" class="form-input"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input type="email" id="regEmail" placeholder="tu@correo.com" class="form-input"/>
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="regPassword" placeholder="Mínimo 6 caracteres" class="form-input"/>
+        </div>
+        <div class="form-group">
+          <label>Tipo de familia</label>
+          <select id="regFamilyType" class="form-input">
+            <option value="single_parent">Padre/Madre soltero(a)</option>
+            <option value="couple">Pareja</option>
+            <option value="extended">Familia extendida</option>
+          </select>
+        </div>
+        <div id="regError" class="form-error" style="display:none"></div>
+        <button class="btn-primary full-width" onclick="handleRegister()">Crear cuenta</button>
+        <p class="auth-switch">¿Ya tienes cuenta? <a onclick="switchTab('login')">Inicia sesión</a></p>
+      </div>
+    </div>
+
+    <div class="auth-features">
+      <div class="feature-pill">📅 Horarios familiares</div>
+      <div class="feature-pill">🔔 Recordatorios automáticos</div>
+      <div class="feature-pill">🤖 IA integrada</div>
+      <div class="feature-pill">👨‍👩‍👧‍👦 Toda la familia</div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+</body>
+</html>

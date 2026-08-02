@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FamilyBot — Gastos del hogar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body class="app-page">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><span class="brand-icon">🏠</span><span class="brand-text">FamilyBot</span></div>
+    <nav class="sidebar-nav">
+      <a class='nav-item' href='dashboard.html'><span class="nav-icon">📊</span><span>Panel</span></a>
+      <a class='nav-item' href='members.html'><span class="nav-icon">👪</span><span>Miembros</span></a>
+      <a class='nav-item' href='schedule.html'><span class="nav-icon">📅</span><span>Horarios</span></a>
+      <a class='nav-item' href='alerts.html'><span class="nav-icon">🔔</span><span>Recordatorios</span><span class="nav-badge" id="alertBadge">0</span></a>
+      <a class='nav-item' href='shopping.html'><span class="nav-icon">🛒</span><span>Compras</span></a>
+      <a class='nav-item active' href='expenses.html'><span class="nav-icon">💰</span><span>Gastos</span></a>
+      <a class='nav-item' href='pets.html'><span class="nav-icon">🐾</span><span>Mascotas</span></a>
+      <a class='nav-item' href='settings.html'><span class="nav-icon">⚙️</span><span>Ajustes</span></a>
+      <a class='nav-item' href='assistant.html'><span class="nav-icon">🤖</span><span>Asistente IA</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info" id="sidebarUser"></div>
+      <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="app-main">
+    <header class="app-header">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1 class="page-title">Gastos del hogar</h1>
+      <div class="header-date">Total: <strong id="expensesTotal">$0</strong></div>
+    </header>
+
+    <div class="page-content">
+      <div class="card">
+        <div class="card-header"><h2>Registrar gasto</h2></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Descripción</label>
+            <input type="text" id="expenseDesc" placeholder="ej: Mercado del mes" class="form-input"/>
+          </div>
+          <div class="form-group">
+            <label>Monto (COP)</label>
+            <input type="number" id="expenseAmount" placeholder="50000" min="0" class="form-input"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Categoría</label>
+            <select id="expenseCategory" class="form-input">
+              <option value="mercado">🛒 Mercado</option>
+              <option value="servicios">💡 Servicios</option>
+              <option value="salud">🏥 Salud</option>
+              <option value="educacion">📚 Educación</option>
+              <option value="transporte">🚗 Transporte</option>
+              <option value="otro">📌 Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Fecha</label>
+            <input type="date" id="expenseDate" class="form-input"/>
+          </div>
+        </div>
+        <div id="expenseFormError" class="form-error" style="display:none"></div>
+        <button class="btn-primary" onclick="addExpense()">+ Registrar gasto</button>
+      </div>
+
+      <div class="card mt-16">
+        <div class="card-header"><h2>Historial de gastos</h2></div>
+        <div class="events-list" id="expensesList"></div>
+        <div class="empty-page" id="expensesEmpty" style="display:none">
+          <div class="empty-big-icon">💰</div>
+          <h2>Aún no hay gastos registrados</h2>
+          <p>Registra los gastos del hogar para llevar un control del presupuesto familiar.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" style="display:none"></div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/expenses.js"></script>
+</body>
+</html>
